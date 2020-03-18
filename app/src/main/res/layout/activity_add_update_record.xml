@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AddUpdateRecordActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/camImv"
+        android:padding="8dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_photo"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#9F9F9F"
+        android:layout_marginTop="16dp"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/camImv"
+        android:id="@+id/contentEdt"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/shape_rectangle"
+        android:hint="Content name"
+        android:inputType="textPersonName|textCapWords"
+        android:layout_margin="16dp"
+        android:padding="8dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="90dp"
+        android:gravity="start"
+        android:layout_below="@+id/contentEdt"
+        android:id="@+id/shortDescEdt"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_rectangle"
+        android:hint="Content name"
+        android:inputType="textCapSentences|textMultiLine"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="8dp"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shortDescEdt"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:id="@+id/submitBut"
+        android:text="SUBMIT"/>
+
+</RelativeLayout>
