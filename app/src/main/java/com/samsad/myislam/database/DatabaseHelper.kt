@@ -14,12 +14,12 @@ class DatabaseHelper(
 
     val DATABASE_NAME :String = "myislam.db"
 
-    val TABLE_NAME :String = "Main.Table"
+    val TABLE_NAME :String = " Main.Table "
     val COL_1 :String = "HEADER"
     val COL_2 :String = "IMAGE"
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db!!.execSQL("create table"+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,HEADER TEXT,IMAGE,TEXT)")
+        db!!.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT,HEADER TEXT,IMAGE,TEXT)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
