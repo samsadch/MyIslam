@@ -15,7 +15,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.samsad.myislam.R
 import com.samsad.myislam.activity.AddUpdateRecordActivity
+import com.samsad.myislam.activity.RecordsActivity
 import com.samsad.myislam.activity.RecordsDetailActivity
+import com.samsad.myislam.database.MyDBHelper
 import com.samsad.myislam.model.ModelRecords
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,10 +26,13 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
 
     private var context: Context? = null
     private var recordList: ArrayList<ModelRecords>? = null
+    lateinit var dbHelper:MyDBHelper
+
 
     constructor(context: Context, recordList: ArrayList<ModelRecords>?) : this() {
         this.context=context
         this.recordList=recordList
+        dbHelper = MyDBHelper(context)
     }
 
     inner class HolderRecord(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -115,7 +120,9 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
                 intent.putExtra("isEditMode",true)
                 context!!.startActivity(intent)
             }else{
-
+                dbHelper.deleteRecord(id!!)
+                //refreshing record
+                (context as RecordsActivity)!!.onResume()
             }
         }
         dialog.show()
