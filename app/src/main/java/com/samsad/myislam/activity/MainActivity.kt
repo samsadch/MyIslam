@@ -25,11 +25,5 @@ class MainActivity : AppCompatActivity() {
         list.add("dummy")
         mainRcv.adapter = MainAdapter(context, list)
 
-
-        addButton.setOnClickListener {
-            startActivity(Intent(context, RecordsActivity::class.java))
-        }
-
-
     }
 }

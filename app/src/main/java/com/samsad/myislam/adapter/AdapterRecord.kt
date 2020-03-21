@@ -1,6 +1,7 @@
 package com.samsad.myislam.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.samsad.myislam.R
+import com.samsad.myislam.activity.RecordsDetailActivity
 import com.samsad.myislam.model.ModelRecords
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
 
@@ -55,7 +59,13 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
 
         holder.nameTxv.text=name
         holder.descTxv.text=desc
-        holder.dateTxv.text=date
+
+        val calander1 = Calendar.getInstance(Locale.getDefault())
+        calander1.timeInMillis = date!!.toLong()
+        val dateDisplay = android.text.format.DateFormat.format("dd/MM/yyyy hh:mm:aa",calander1)
+
+        holder.dateTxv.text=dateDisplay
+
         if (image=="null"){
             holder.profileImv.setImageResource(R.drawable.ic_person)
         }else{
@@ -64,6 +74,12 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
 
         holder.moreButton.setOnClickListener{
 
+        }
+
+        holder.mainCard.setOnClickListener {
+            val intent = Intent(context,RecordsDetailActivity::class.java)
+            intent.putExtra("RECORD_DATA",id)
+            context!!.startActivity(intent)
         }
 
     }

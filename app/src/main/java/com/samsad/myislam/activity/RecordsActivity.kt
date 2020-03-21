@@ -1,5 +1,6 @@
 package com.samsad.myislam.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -21,6 +22,10 @@ class RecordsActivity : AppCompatActivity() {
 
         dbHelper = MyDBHelper(this)
         loadRecord()
+
+        addButton.setOnClickListener {
+            startActivity(Intent(this, AddUpdateRecordActivity::class.java))
+        }
     }
 
     private fun loadRecord() {
@@ -29,7 +34,7 @@ class RecordsActivity : AppCompatActivity() {
     }
 
     private fun searchRecords(query:String) {
-        val adapterRecord = AdapterRecord(this,dbHelper.getAllRecords(NEWEST_FIRST))
+        val adapterRecord = AdapterRecord(this,dbHelper.searchRecords(query))
         recordsRcv.adapter = adapterRecord
     }
 
@@ -60,4 +65,6 @@ class RecordsActivity : AppCompatActivity() {
         })
         return super.onCreateOptionsMenu(menu)
     }
+
+
 }

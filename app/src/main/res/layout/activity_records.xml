@@ -10,10 +10,20 @@
         android:id="@+id/recordsRcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
+        android:layout_margin="2dp"
         tools:listitem="@layout/list_item_records"
         android:paddingBottom="60dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/addButton"
+        android:src="@drawable/ic_photo"
+        android:layout_margin="16dp"/>
 
 </RelativeLayout>

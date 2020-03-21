@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".activity.RecordsDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_person"
+            android:id="@+id/userImv"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/color_grey"/>
+        
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="2">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/titleTxv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Information"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:text="Use Name"
+                    android:id="@+id/nameTxv"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:text="Description"
+                    android:id="@+id/descTxv"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Created At"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:text="Created At"
+                    android:id="@+id/createdTxv"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Updated At"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:text="Updated At"
+                    android:id="@+id/updatedTxv"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"/>
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>
