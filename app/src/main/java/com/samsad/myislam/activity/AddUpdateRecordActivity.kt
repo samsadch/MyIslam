@@ -6,12 +6,12 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.samsad.myislam.R
@@ -19,6 +19,7 @@ import com.samsad.myislam.database.MyDBHelper
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_add_update_record.*
+import kotlinx.android.synthetic.main.list_item_records.*
 
 class AddUpdateRecordActivity : AppCompatActivity() {
 
@@ -35,10 +36,13 @@ class AddUpdateRecordActivity : AppCompatActivity() {
 
     private var actionbar: ActionBar? = null
 
+    private var id: String? = null
     private var name: String? = null
     private var desc: String? = null
 
     lateinit var myDBHelper: MyDBHelper
+
+    private var isEditMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +52,29 @@ class AddUpdateRecordActivity : AppCompatActivity() {
         actionbar!!.title = "Add record"
         actionbar!!.setDisplayHomeAsUpEnabled(true)
         actionbar!!.setDisplayShowHomeEnabled(true)
+
+        val intent = intent
+        isEditMode = intent.getBooleanExtra("isEditMode", false)
+        if (isEditMode) {
+            actionbar!!.title = "Update record"
+            id = intent.getStringExtra("ID")
+            name = intent.getStringExtra("NAME")
+            desc = intent.getStringExtra("DESC")
+            imageUri = Uri.parse(intent.getStringExtra("IMAGE"))
+            name = intent.getStringExtra("DATE")
+
+            contentEdt.setText(name)
+            shortDescEdt.setText(desc)
+
+            if (imageUri.toString() == "null") {
+                camImv.setImageResource(R.drawable.ic_person)
+            } else {
+                camImv.setImageURI(imageUri)
+            }
+
+        } else {
+
+        }
 
         myDBHelper = MyDBHelper(this)
 
@@ -63,12 +90,25 @@ class AddUpdateRecordActivity : AppCompatActivity() {
     private fun getTextFieldData() {
         name = contentEdt.editableText.toString()
         desc = shortDescEdt.editableText.toString()
+
         val time = System.currentTimeMillis()
-        val id = myDBHelper.insertRecord(
-            name,
-            "" + imageUri, desc, time.toString(), time.toString()
-        )
-        Toast.makeText(this, "At $id", Toast.LENGTH_LONG).show()
+
+        if (isEditMode) {
+
+            myDBHelper.updateRecord(id, name, "" + imageUri, desc, time.toString())
+
+            Toast.makeText(this, "Updated... $id", Toast.LENGTH_LONG).show()
+        } else {
+            val id = myDBHelper.insertRecord(
+                name,
+                "" + imageUri, desc, time.toString(), time.toString()
+            )
+
+            Toast.makeText(this, "Record added against $id", Toast.LENGTH_LONG).show()
+            contentEdt.setText(" ")
+            shortDescEdt.setText(" ")
+        }
+
     }
 
     private fun showImagePicker() {

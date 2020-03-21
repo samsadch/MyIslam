@@ -24,7 +24,9 @@ class RecordsActivity : AppCompatActivity() {
         loadRecord()
 
         addButton.setOnClickListener {
-            startActivity(Intent(this, AddUpdateRecordActivity::class.java))
+            val intent = Intent(this,AddUpdateRecordActivity::class.java)
+            intent.putExtra("isEditMode",false)
+            startActivity(intent)
         }
     }
 

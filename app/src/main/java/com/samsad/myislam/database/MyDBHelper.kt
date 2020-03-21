@@ -39,6 +39,21 @@ class MyDBHelper(context: Context) :
         return id
     }
 
+    //Update Record in DB
+    fun updateRecord(id:String?,name:String?,image: String?,desc:String?,updatedTime:String?):Long{
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(Constants.C_NAME, name)
+        values.put(Constants.C_IMAGE, image)
+        values.put(Constants.C_DESC, desc)
+        //values.put(Constants.C_ADD_TIME, addedTime)
+        values.put(Constants.C_UPDATED_TIME, updatedTime)
+
+        return db.update(Constants.TABLE_NAME,
+            values,"${Constants.C_ID}=?", arrayOf(id)).toLong()
+
+    }
+
     fun getAllRecords(orderBy: String): ArrayList<ModelRecords> {
         val records = ArrayList<ModelRecords>()
         val selectQuery = "SELECT * FROM " + Constants.TABLE_NAME + " ORDER BY " + orderBy
@@ -56,17 +71,18 @@ class MyDBHelper(context: Context) :
 
                 )
                 records.add(modelRecord)
-            }while (cursor.moveToNext())
+            } while (cursor.moveToNext())
 
         }
         db.close()
-        return  records
+        return records
     }
 
 
     fun searchRecords(query: String): ArrayList<ModelRecords> {
         val records = ArrayList<ModelRecords>()
-        val selectQuery = "SELECT * FROM " + Constants.TABLE_NAME + " WHERE " + Constants.C_NAME +" LIKE  '%"+query+"%'"
+        val selectQuery =
+            "SELECT * FROM " + Constants.TABLE_NAME + " WHERE " + Constants.C_NAME + " LIKE  '%" + query + "%'"
         val db = this.writableDatabase
         val cursor = db.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
@@ -81,11 +97,40 @@ class MyDBHelper(context: Context) :
 
                 )
                 records.add(modelRecord)
-            }while (cursor.moveToNext())
+            } while (cursor.moveToNext())
 
         }
         db.close()
-        return  records
+        return records
     }
+
+    fun recordCount(): Int {
+        val query = "SELECT * FROM ${Constants.TABLE_NAME}"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(query,null)
+        val coount = cursor.count
+        db.close()
+        return coount
+    }
+
+    //Delete Single record using ID
+    fun deleteRecord(id:String){
+        val db = this.writableDatabase
+        db.delete(
+            Constants.TABLE_NAME,
+            "${Constants.C_ID} = ?",
+            arrayOf(id)
+        )
+        db.close()
+    }
+
+    //delete All records
+
+    fun deleteAll(){
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM ${Constants.TABLE_NAME}")
+        db.close()
+    }
+
 
 }

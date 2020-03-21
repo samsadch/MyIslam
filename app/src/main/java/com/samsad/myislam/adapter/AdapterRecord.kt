@@ -1,6 +1,7 @@
 package com.samsad.myislam.adapter
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.samsad.myislam.R
+import com.samsad.myislam.activity.AddUpdateRecordActivity
 import com.samsad.myislam.activity.RecordsDetailActivity
 import com.samsad.myislam.model.ModelRecords
 import java.util.*
@@ -73,7 +76,14 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
         }
 
         holder.moreButton.setOnClickListener{
-
+            showMoreOption(
+                position,
+                id,
+                name,
+                image,
+                date,
+                desc
+            )
         }
 
         holder.mainCard.setOnClickListener {
@@ -82,5 +92,32 @@ class AdapterRecord() : RecyclerView.Adapter<AdapterRecord.HolderRecord>() {
             context!!.startActivity(intent)
         }
 
+    }
+
+    private fun showMoreOption(
+        position: Int,
+        id: String?,
+        name: String?,
+        image: String?,
+        date: String,
+        desc: String?
+    ) {
+        val options = arrayOf("Edit","Delete")
+        val dialog:AlertDialog.Builder = AlertDialog.Builder(context!!)
+        dialog.setItems(options) { dialog, which ->
+            if(which==0){
+                val intent = Intent(context!!,AddUpdateRecordActivity::class.java)
+                intent.putExtra("ID",id)
+                intent.putExtra("NAME",name)
+                intent.putExtra("DESC",desc)
+                intent.putExtra("IMAGE",image)
+                intent.putExtra("DATE",date)
+                intent.putExtra("isEditMode",true)
+                context!!.startActivity(intent)
+            }else{
+
+            }
+        }
+        dialog.show()
     }
 }
